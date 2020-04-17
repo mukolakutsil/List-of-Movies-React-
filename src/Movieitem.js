@@ -2,9 +2,17 @@ import React from "react";
 
 
 class MovieItem extends React.Component {
+
+    constructor(){
+        super ();
+
+        this.state = {
+            willWatch: false
+        }
+    }
     render () {
 
-        const {movie, removeMovie,  addMovieToWillWatch } = this.props
+        const {movie, removeMovie,  addMovieToWillWatch,  removeMovieFromWillWatch  } = this.props;
 
         return (
            
@@ -20,9 +28,27 @@ class MovieItem extends React.Component {
         <h6 className="card-title">{movie.title}</h6>
         <div className="d-flex justify-content-between align-items-center">
           <p className="mb-0">Rating: {movie.vote_average}</p>
-          <button type="button" className="btn btn-secondary" onClick={addMovieToWillWatch.bind(movie)}>
-            Will Watch
-          </button>
+          {this.state.willWatch === true ? (
+              <button type="button" className="btn btn-success" onClick={() => {
+                  this.setState({
+                      willWatch : false
+                  });
+                    removeMovieFromWillWatch(movie);
+              }}
+              >
+            Remove Will Watch
+            </button>) : 
+            (<button type="button" className="btn btn-secondary" 
+            onClick={ () => {
+                this.setState({
+                    willWatch: true
+                });
+                addMovieToWillWatch(movie); 
+                }} >
+            Add Will Watch
+          </button>)
+          } 
+         
         </div>
         <button onClick={removeMovie.bind(null,  movie)}>
             Delete movie 

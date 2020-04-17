@@ -36,6 +36,17 @@
       moviesWillWatch:  updateMoviesWillWatch
     })
   };
+
+  removeMovieFromWillWatch = movie => {
+    const  updateMoviesWillWatch = this.state.moviesWillWatch.filter(function(item) {
+      return item.id !== movie.id;
+    });
+    
+    
+    this.setState ({
+      moviesWillWatch: updateMoviesWillWatch
+    });
+  };
   
   render() {
   console.log("render", this.state);
@@ -51,6 +62,7 @@
        movie={movie}
        removeMovie={this.removeMovie}
        addMovieToWillWatch={this.addMovieToWillWatch}
+       removeMovieFromWillWatch={this.removeMovieFromWillWatch}
      />
      
      );
